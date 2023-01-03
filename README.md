@@ -8,6 +8,9 @@
 - Increment/Decrement balances
 - Check balances
 
+- Validates balances so they don't fall below 0.
+- Validates card IDs before performing functions.
+
 ## Limitations
 
 - Security (this repo should not be public)
