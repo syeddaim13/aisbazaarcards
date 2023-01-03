@@ -10,6 +10,6 @@
 
 ## Limitations
 
-- Security (this should not be public)
+- Security (this repo should not be public)
 
 Link to [website.](https://bazaarcards23.web.app/)
