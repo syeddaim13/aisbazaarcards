@@ -224,7 +224,7 @@ function FindData() {
             findCusName.innerHTML = "Customer name: " + snapshot.val().customerName;
             findAmount.innerHTML = "Card balance: " + snapshot.val().balance;
             findMerID.innerHTML = "Made by: " + snapshot.val().creator;
-            findTime.innerHTML = "Last updated: " + snapshot.val().dateAdded+" at "+ snapshot.val().timeAdded;
+            findTime.innerHTML = "Made on: " + snapshot.val().dateAdded+" at "+ snapshot.val().timeAdded;
         } else {
             alert("Card not found.");
         }
