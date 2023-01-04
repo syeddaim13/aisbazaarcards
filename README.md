@@ -13,6 +13,6 @@
 
 ## Limitations
 
-- Security (this repo should not be public...but HI ADMISSIONS OFFICER!)
+- Security (this repo should not be public...but HI ADMISSIONS OFFICER or head teacher or passerby 😇)
 
 Link to [website.](https://bazaarcards23.web.app/)
