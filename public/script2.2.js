@@ -1,5 +1,5 @@
 //Bazar Card System
-var ver = "alpha 2.1"
+var ver = "alpha 2.2"
 
 document.getElementById("version").innerHTML = ver
 
@@ -18,7 +18,7 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 
-import {getDatabase, ref, get, set, child, update, remove}
+import {getDatabase, ref, get, set, child, update}
 from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js";
 
 
@@ -35,7 +35,7 @@ function TimeCalc(){
   
   todaydate = dd + '/' + mm + '/' + yyyy;
   
-  todaytime = today.getHours()+":"+today.getMinutes()+":"+ today.getSeconds();
+  todaytime = String(today.getHours()).padStart(2,'0')+":"+String(today.getMinutes()).padStart(2,'0')+":"+ String(today.getSeconds()).padStart(2,'0');
   
   console.log(todaydate+" and "+todaytime)
 
