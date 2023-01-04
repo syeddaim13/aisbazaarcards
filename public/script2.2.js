@@ -269,7 +269,8 @@ async function ChargeData() {
         })};
       } else {
         alert("Card not found");
-        
+        iscardfound = 0
+
 
       }
     }).catch((error) => {
