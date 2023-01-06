@@ -1,5 +1,5 @@
 //Bazar Card System
-var ver = "alpha 2.2"
+var ver = "alpha 2.3"
 
 document.getElementById("version").innerHTML = ver
 
@@ -91,7 +91,7 @@ function getTransactions(){
   get(child(dbref, "metadata/")).then((snapshot) => {
     if (snapshot.exists()) {
       prevtrans = snapshot.val().transactions;
-      prevtrans = parseInt(prevtrans)+1
+      prevtrans = parseFloat(prevtrans)+1
       console.log(prevtrans+"new val should be")
       .catch((error) => {
         console.log(error);
@@ -123,7 +123,7 @@ function getRecharges(){
   get(child(dbref, "metadata/")).then((snapshot) => {
     if (snapshot.exists()) {
       prevrecharges = snapshot.val().recharges;
-      prevrecharges = parseInt(prevrecharges)+1
+      prevrecharges = parseFloat(prevrecharges)+1
       console.log(prevrecharges+" new val should be")
       .catch((error) => {
         console.log(error);
@@ -156,7 +156,7 @@ function getCards(){
   get(child(dbref, "metadata/")).then((snapshot) => {
     if (snapshot.exists()) {
       prevcards = snapshot.val().cards;
-      prevcards = parseInt(prevcards)+1
+      prevcards = parseFloat(prevcards)+1
 
       console.log(prevcards+"new cards should be");
 
@@ -184,16 +184,17 @@ async function InsertData() {
     await TimeCalc()
     const dbref = ref(db);
 
-    if (isNaN(parseInt(enterMerName.value))) {
+    if (isNaN(parseFloat(enterMerName.value))) {
       alert("Merchant ID must be a number.")
     }
     else {
 
     set(ref(db, "cards/"+ prevcards),{
-        creator: parseInt(enterMerName.value),
+        creator: parseFloat(enterMerName.value),
         customerName: enterCusName.value,
         cardID: prevcards,
-        balance: parseInt(enterAmount.value),
+        initAmount: parseFloat(enterAmount.value),
+        balance: parseFloat(enterAmount.value),
         dateAdded: todaydate,
         timeAdded: todaytime
     })
@@ -251,7 +252,7 @@ async function ChargeData() {
     get(child(dbref, "cards/" + ChargeID.value)).then((snapshot) => {
       if (snapshot.exists()) {
         const currentBalance = snapshot.val().balance;
-        const newBalance = currentBalance - parseInt(ChargeAmount.value);
+        const newBalance = currentBalance - parseFloat(ChargeAmount.value);
 
         if (newBalance < 0) {
           alert("Not enough funds. Current balance is "+currentBalance+".")
@@ -280,7 +281,7 @@ async function ChargeData() {
 
     get(child(dbref, "metadata/")).then((snapshot) => {
       if (snapshot.exists()) {
-        trans = parseInt(snapshot.val().transactions) + 1; // increment trans by 1
+        trans = parseFloat(snapshot.val().transactions) + 1; // increment trans by 1
         console.log(trans+"val")
         update(child(dbref, "metadata/"), {
           transactions: trans
@@ -297,11 +298,11 @@ async function ChargeData() {
       alert(error);
     });
 
-    if (iscardfound != 0){
+    if (iscardfound == -1){
     console.log(prevtrans+"val about to be added")
     set(ref(db, "transactions/"+ prevtrans),{
       transactionID: prevtrans,
-      amountDeducted: parseInt(ChargeAmount.value),
+      amountDeducted: parseFloat(ChargeAmount.value),
       merchant: ChargeMerID.value,
       cardid: ChargeID.value,
       dateAdded: todaydate,
@@ -325,7 +326,7 @@ async function RechargeData(){
     get(child(dbref, "cards/" + RechargeID.value)).then((snapshot) => {
       if (snapshot.exists()) {
         const currentBalance = snapshot.val().balance;
-        const newBalance = currentBalance + parseInt(RechargeAmount.value);
+        const newBalance = currentBalance + parseFloat(RechargeAmount.value);
 
         update(child(dbref, "cards/" + RechargeID.value), {
           balance: newBalance
@@ -345,7 +346,7 @@ async function RechargeData(){
     console.log(prevrecharges+"val about to be added")
     set(ref(db, "recharges/"+ prevrecharges),{
       rechargeID: prevrecharges,
-      amountAdded: parseInt(RechargeAmount.value),
+      amountAdded: parseFloat(RechargeAmount.value),
       merchant: RechargeMerID.value,
       cardid: RechargeID.value,
       dateAdded: todaydate,
@@ -363,3 +364,4 @@ insertBtn.addEventListener('click', InsertData);
 findBtn.addEventListener('click', FindData);
 chargeBtn.addEventListener('click', ChargeData);
 rechargeBtn.addEventListener('click',RechargeData)
+
