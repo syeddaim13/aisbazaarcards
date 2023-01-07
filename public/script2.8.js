@@ -1,20 +1,14 @@
 //Bazar Card System
-var ver = "alpha 2.3"
+var ver = "alpha 2.8"
 
 document.getElementById("version").innerHTML = ver
+
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
 
 const firebaseConfig = {
-    apiKey: "AIzaSyDzO_zXhlSiPey8oZhD-Ohg2lEPqRemFjU",
-    authDomain: "bazaarcards23.firebaseapp.com",
-    databaseURL: "https://bazaarcards23-default-rtdb.europe-west1.firebasedatabase.app",
-    projectId: "bazaarcards23",
-    storageBucket: "bazaarcards23.appspot.com",
-    messagingSenderId: "789757258283",
-    appId: "1:789757258283:web:2e020ed48092512bc5986e",
-    measurementId: "G-TECJXRNTZ2"
-};
+    //redacted for security reasons
+}
 
 const app = initializeApp(firebaseConfig);
 
@@ -23,6 +17,23 @@ from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js";
 
 
 const db = getDatabase();
+
+const sellers = ["Syed Daim"] //list of sellers
+
+
+function LogIn() {
+  var a = document.getElementById("sellernum").value
+
+  if (a == null || a == "" || a > sellers.length-1 || a < 0) {
+      alert("Please enter a valid seller number")
+  } else {
+      document.getElementById("loginbtn").style.display = "none";
+      document.getElementById("version").innerHTML = "Welcome, "+sellers[a]+"."
+      document.getElementById("container").style.display = "";
+      document.getElementById("sellernum").style.display = "none";
+      document.getElementById("selleriddiv").style.display = "none";
+  }
+  }
 
 var today,dd,mm,yyyy,todaydate,todaytime
 
@@ -58,7 +69,7 @@ var prevtrans = 0
 var prevcards = 0
 var prevrecharges = 0
 
-var enterMerName = document.querySelector("#enterMerID");
+var enterMerName = document.querySelector("#sellernum");
 var enterCusName = document.querySelector("#enterCusName");
 var enterAmount = document.querySelector("#enterAmount");
 
@@ -69,11 +80,11 @@ var findAmount = document.querySelector("#findAmount");
 var findTime = document.querySelector("#findTime");
 
 var ChargeID = document.querySelector("#ChargeID");
-var ChargeMerID = document.querySelector("#ChargeMerID");
+var ChargeMerID = document.querySelector("#sellernum");
 var ChargeAmount = document.querySelector("#ChargeAmount");
 
 var RechargeID = document.querySelector("#RechargeID");
-var RechargeMerID = document.querySelector("#RechargeMerID");
+var RechargeMerID = document.querySelector("#sellernum");
 var RechargeAmount = document.querySelector("#RechargeAmount");
 
 
@@ -82,6 +93,7 @@ var insertBtn = document.querySelector("#insert");
 var findBtn = document.querySelector("#find");
 var chargeBtn = document.querySelector("#charge");
 var rechargeBtn = document.querySelector("#recharge")
+var loginBtn = document.querySelector("#loginbtn")
 
 
 function getTransactions(){
@@ -92,7 +104,7 @@ function getTransactions(){
     if (snapshot.exists()) {
       prevtrans = snapshot.val().transactions;
       prevtrans = parseFloat(prevtrans)+1
-      console.log(prevtrans+"new val should be")
+      console.log(prevtrans+" new val should be")
       .catch((error) => {
         console.log(error);
       });
@@ -185,7 +197,7 @@ async function InsertData() {
     const dbref = ref(db);
 
     if (isNaN(parseFloat(enterMerName.value))) {
-      alert("Merchant ID must be a number.")
+      alert("Seller ID not entered.")
     }
     else {
 
@@ -224,7 +236,7 @@ function FindData() {
         if(snapshot.exists()){
             findCusName.innerHTML = "Customer name: " + snapshot.val().customerName;
             findAmount.innerHTML = "Card balance: " + snapshot.val().balance;
-            findMerID.innerHTML = "Made by: " + snapshot.val().creator;
+            findMerID.innerHTML = "Made by: " + sellers[snapshot.val().creator];
             findTime.innerHTML = "Made on: " + snapshot.val().dateAdded+" at "+ snapshot.val().timeAdded;
         } else {
             alert("Card not found.");
@@ -256,7 +268,6 @@ async function ChargeData() {
 
         if (newBalance < 0) {
           alert("Not enough funds. Current balance is "+currentBalance+".")
-          location.reload();
         }
         else {
 
@@ -364,4 +375,4 @@ insertBtn.addEventListener('click', InsertData);
 findBtn.addEventListener('click', FindData);
 chargeBtn.addEventListener('click', ChargeData);
 rechargeBtn.addEventListener('click',RechargeData)
-
+loginBtn.addEventListener('click', LogIn)
