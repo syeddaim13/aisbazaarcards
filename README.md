@@ -13,6 +13,8 @@
 
 ## Limitations
 
-- Security (this repo should not be public...but HI ADMISSIONS OFFICER or head teacher or passerby 😇)
+- Limited options for security. Log in implementations possible, but not yet implemented.
 
 Link to [website.](https://bazaarcards23.web.app/)
+
+Hello from Jeddah, admissions officer/future professor. 😇
