@@ -1,5 +1,5 @@
 # AIS Bazaar Cards
-#### A private database to manage digital card balances at our class of 23' seniors bazaar.
+#### A private database to manage digital prepaid card balances at our class of 23' seniors bazaar.
 
 
 ## Features
@@ -7,12 +7,15 @@
 - Create cards
 - Increment/Decrement balances
 - Check balances
+- Saves all data on a Google Firebase Realtime Database
 
 - Validates balances so they don't fall below 0.
 - Validates card IDs before performing functions.
 
 ## Limitations
 
-- Security (this repo should not be public...but HI ADMISSIONS OFFICER or head teacher or passerby 😇)
+- Limited options for security. Log in implementations possible, but not yet implemented.
 
 Link to [website.](https://bazaarcards23.web.app/)
+
+Hello from Jeddah, admissions officer/future professor. 😇
