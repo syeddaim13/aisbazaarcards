@@ -1,39 +1,52 @@
 //Bazar Card System
-var ver = "alpha 2.8"
+var ver = "Beta 1.0.0 (use seller code 0)"
 
 document.getElementById("version").innerHTML = ver
 
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
+import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-analytics.js";
 
 const firebaseConfig = {
-    //redacted for security reasons
+// hidden for security
 }
 
 const app = initializeApp(firebaseConfig);
+
 
 import {getDatabase, ref, get, set, child, update}
 from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js";
 
 
 const db = getDatabase();
+const analytics = getAnalytics(app);
 
 const sellers = ["Syed Daim"] //list of sellers
 
 
 function LogIn() {
-  var a = document.getElementById("sellernum").value
+  var a = parseInt(document.getElementById("sellernum").value)
 
-  if (a == null || a == "" || a > sellers.length-1 || a < 0) {
-      alert("Please enter a valid seller number")
+  if (a == null || a == "" || a > sellers.length-1 || a < 0 || isNaN(a)) {
+      alert("Please enter a valid seller number.")
   } else {
       document.getElementById("loginbtn").style.display = "none";
       document.getElementById("version").innerHTML = "Welcome, "+sellers[a]+"."
       document.getElementById("container").style.display = "";
       document.getElementById("sellernum").style.display = "none";
       document.getElementById("selleriddiv").style.display = "none";
+
+      document.getElementById("hide").style.display = "";
   }
   }
+
+function Hide() {
+  document.getElementById("header").style.display = "none";
+  document.getElementById("hide").style.display = "none";
+  document.getElementById("unhide").style.display = "none";
+  document.getElementById("unhide2").style.display = "none";
+
+}
 
 var today,dd,mm,yyyy,todaydate,todaytime
 
@@ -94,6 +107,7 @@ var findBtn = document.querySelector("#find");
 var chargeBtn = document.querySelector("#charge");
 var rechargeBtn = document.querySelector("#recharge")
 var loginBtn = document.querySelector("#loginbtn")
+var Hidebtn = document.querySelector("#hide")
 
 
 function getTransactions(){
@@ -376,3 +390,4 @@ findBtn.addEventListener('click', FindData);
 chargeBtn.addEventListener('click', ChargeData);
 rechargeBtn.addEventListener('click',RechargeData)
 loginBtn.addEventListener('click', LogIn)
+Hidebtn.addEventListener('click', Hide)
